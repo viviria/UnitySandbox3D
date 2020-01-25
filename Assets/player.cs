@@ -18,21 +18,37 @@ public class Player : MonoBehaviour
 
     public void leftButtonDown()
     {
-        transform.Translate(-1, 0, 0);
+        var pos = transform.position;
+        pos.x -= 1.0f;
+
+        transform.position = pos;
+        transform.rotation = Quaternion.Euler(0, -90, 0);
     }
 
     public void rightButtonDown()
     {
-        transform.Translate(1, 0, 0);
+        var pos = transform.position;
+        pos.x += 1.0f;
+
+        transform.position = pos;
+        transform.rotation = Quaternion.Euler(0, 90, 0);
     }
 
     public void upButtonDown()
     {
-        transform.Translate(0, 0, 1);
+        var pos = transform.position;
+        pos.z += 1.0f;
+
+        transform.position = pos;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     public void downButtonDown()
     {
-        transform.Translate(0, 0, -1);
+        var pos = transform.position;
+        pos.z -= 1.0f;
+
+        transform.position = pos;
+        transform.rotation = Quaternion.Euler(0, -180, 0);
     }
 }
