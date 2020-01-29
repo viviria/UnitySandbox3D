@@ -4,7 +4,7 @@ namespace Common
 {
     public class CallbackManager
     {
-        public bool isExecute_ = false;
+        public bool isExecute_ { private set; get; } = false;
         private float endTime_ = 0.0f;
         private float elapsedTime_ = 0.0f;
         private Action<float> action_ = null;

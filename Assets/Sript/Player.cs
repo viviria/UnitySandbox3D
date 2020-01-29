@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     private Animator animator = null;
     private float moveTime = 0.25f;
+    private float attackTime = 0.75f;
     private CallbackManager callbackManager = null;
     private GameObject uiCanvas = null;
 
@@ -89,5 +90,23 @@ public class Player : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, rotate, 0);
         moveAction(new Vector3(dx, 0, dz));
+    }
+
+    public void attackButtonDown()
+    {
+        if (callbackManager != null && callbackManager.isExecute_)
+        {
+            return;
+        }
+
+        callbackManager = new CallbackManager(attackTime, null,
+            () => {
+                this.animator.SetTrigger("idleTrigger");
+                this.callbackManager = null;
+            }
+        );
+        
+        animator.SetTrigger("attackTrigger");
+        callbackManager.Start();
     }
 }
