@@ -8,11 +8,13 @@ public class Player : MonoBehaviour
     private Animator animator = null;
     private float moveTime = 0.25f;
     private CallbackManager callbackManager = null;
+    private GameObject uiCanvas = null;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        uiCanvas = GameObject.Find("Canvas");
     }
 
     // Update is called once per frame
@@ -33,9 +35,11 @@ public class Player : MonoBehaviour
             () => {
                 this.animator.SetTrigger("idleTrigger");
                 this.callbackManager = null;
+                uiCanvas.GetComponent<CanvasController>().setEnabled(true);
             }
         );
 
+        uiCanvas.GetComponent<CanvasController>().setEnabled(false);
         this.animator.SetTrigger("walkTrigger");
         callbackManager.Start();
     }
