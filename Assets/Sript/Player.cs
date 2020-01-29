@@ -6,10 +6,7 @@ using Common;
 public class Player : MonoBehaviour
 {
     private Animator animator = null;
-    private Vector3 moveVec;
     private float moveTime = 0.25f;
-    private float moveDeltaTime = 0.0f;
-    private bool isMove = false;
     private CallbackManager callbackManager = null;
 
     // Start is called before the first frame update
