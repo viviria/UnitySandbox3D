@@ -2,7 +2,7 @@
 
 namespace Common
 {
-    public class CallbackManager
+    public class TimeCallback
     {
         public bool isExecute_ { private set; get; } = false;
         private float endTime_ = 0.0f;
@@ -10,7 +10,7 @@ namespace Common
         private Action<float> action_ = null;
         private Action endCallback_ = null;
 
-        public CallbackManager(float endTime, Action<float> action, Action endCallback)
+        public TimeCallback(float endTime, Action<float> action, Action endCallback)
         {
             endTime_ = endTime;
             action_ = action;

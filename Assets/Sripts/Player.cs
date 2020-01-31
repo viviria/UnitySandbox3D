@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private Animator animator = null;
     private float moveTime = 0.25f;
     private float attackTime = 0.75f;
-    private CallbackManager callbackManager = null;
+    private TimeCallback callbackManager = null;
     private GameObject uiCanvas = null;
 
     // Start is called before the first frame update
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     
     void moveAction(Vector3 moveVec)
     {
-        callbackManager = new CallbackManager(moveTime,
+        callbackManager = new TimeCallback(moveTime,
             deltaTime => {
                 transform.position = transform.position + moveVec * deltaTime / moveTime;
             },
@@ -99,7 +99,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        callbackManager = new CallbackManager(attackTime, null,
+        callbackManager = new TimeCallback(attackTime, null,
             () => {
                 this.animator.SetTrigger("idleTrigger");
                 this.callbackManager = null;
