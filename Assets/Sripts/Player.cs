@@ -25,6 +25,12 @@ public class Player : MonoBehaviour
         {
             callbackManager.Update(Time.deltaTime);
         }
+        
+        TouchUtil.TouchInfo touchInfo = TouchUtil.getTouch();
+        if (touchInfo.type_ == TouchUtil.TouchType.BEGIN) {
+            Debug.Log(touchInfo.type_);
+            Debug.Log(touchInfo.position_);
+        }
     }
     
     void moveAction(Vector3 moveVec)
