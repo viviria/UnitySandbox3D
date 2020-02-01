@@ -5,16 +5,13 @@ namespace Roguelike {
   public class Player : MonoBehaviour
   {
     private PlayerMove playerMove_ = null;
-    private float attackTime = 0.75f;
-    private TimeCallback timeCallback = null;
-    private Animator animator = null;
+    private Animator animator_ = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
-        GameObject uiCanvas = GameObject.Find("Canvas");
-        playerMove_ = new PlayerMove(this, animator, uiCanvas);
+        animator_ = GetComponent<Animator>();
+        playerMove_ = new PlayerMove(this, animator_, GameObject.Find("Canvas"));
     }
 
     // Update is called once per frame
@@ -36,20 +33,12 @@ namespace Roguelike {
 
     public void attackButtonDown()
     {
-        if (timeCallback != null && timeCallback.isExecute_)
-        {
-            return;
-        }
-
-        timeCallback = new TimeCallback(attackTime, null,
-            () => {
-                this.animator.SetTrigger("idleTrigger");
-                this.timeCallback = null;
-            }
-        );
+      if (animator_.GetCurrentAnimatorStateInfo(0).IsName("attack"))
+      {
+        return;
+      }
         
-        animator.SetTrigger("attackTrigger");
-        timeCallback.Start();
+      animator_.SetTrigger("attackTrigger");
     }
   }
 }
