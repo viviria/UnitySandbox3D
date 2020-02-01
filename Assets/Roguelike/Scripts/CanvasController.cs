@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CanvasController : MonoBehaviour
-{
+namespace Roguelike {
+  public class CanvasController : MonoBehaviour
+  {
     // Start is called before the first frame update
     void Start()
     {
@@ -28,4 +29,5 @@ public class CanvasController : MonoBehaviour
             }
         }
     }
+  }
 }

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
-{
+namespace Roguelike {
+  public class CameraController : MonoBehaviour
+  {
     GameObject player = null;
     Vector3 startPos;
 
@@ -20,4 +21,5 @@ public class CameraController : MonoBehaviour
         Vector3 playerPos = player.transform.position;
         transform.position = playerPos + startPos;
     }
+  }
 }
