@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     private Animator animator = null;
     private const float MOVE_TIME = 0.25f;
-    private const float MOVE_DIS = 2.0f;
+    private const float MOVE_DIS = 1.5f;
     private float attackTime = 0.75f;
     private TimeCallback callbackManager = null;
     private GameObject uiCanvas = null;
