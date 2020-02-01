@@ -7,7 +7,7 @@ namespace Roguelike {
   public class PlayerMove
   {
     private const float MOVE_TIME = 0.25f;
-    private const float MOVE_DIS = 2.12132034f; // 1.5f * Mathf.Sqert(2);
+    private float MOVE_DIS = 1.5f * Mathf.Sqert(2);
     private Player player_ = null;
     private Animator animator_ = null;
     private TimeCallback timeCallback_ = null;
