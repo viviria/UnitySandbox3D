@@ -13,7 +13,9 @@ namespace Common
     {
       BEGIN = 0,
       MOVE = 1,
-      END = 2,
+      STATIONARY = 2,
+      END = 3,
+      CANCEL = 4,
       NONE = -1,
     }
 
@@ -41,6 +43,23 @@ namespace Common
       return over;
     }
 
+    private static TouchType changeTouchType(TouchPhase phase)
+    {
+      switch (phase) {
+        case TouchPhase.Began:
+          return TouchType.BEGIN;
+        case TouchPhase.Moved:
+          return TouchType.MOVE;
+        case TouchPhase.Stationary:
+          return TouchType.STATIONARY;
+        case TouchPhase.Ended:
+          return TouchType.END;
+        case TouchPhase.Canceled:
+          return TouchType.CANCEL;
+      }
+      return TouchType.NONE;
+    }
+
     private static TouchInfo createTouchInfo(int index)
     {
       TouchType type = TouchType.NONE;
@@ -64,7 +83,7 @@ namespace Common
       } else {
         if (Input.touchCount > 0 && index >= 0 && index < Input.touchCount) {
           Touch touch = Input.GetTouch(index);
-          type = (TouchType)touch.phase;
+          type = changeTouchType(touch.phase);
           position = touch.position;
           if (isPointOverUIObject(position)) {
             type = TouchType.NONE;
@@ -96,6 +115,17 @@ namespace Common
       }
       
       return touches;
+    }
+
+    public static bool isTouch(TouchInfo info)
+    {
+      switch (info.type_) {
+        case TouchType.BEGIN:
+        case TouchType.MOVE:
+        case TouchType.STATIONARY:
+          return true;
+      }
+      return false;
     }
   }
 }

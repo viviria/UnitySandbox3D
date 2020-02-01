@@ -25,12 +25,6 @@ public class Player : MonoBehaviour
         {
             callbackManager.Update(Time.deltaTime);
         }
-        
-        TouchUtil.TouchInfo touchInfo = TouchUtil.getTouch();
-        if (touchInfo.type_ == TouchUtil.TouchType.BEGIN) {
-            Debug.Log(touchInfo.type_);
-            Debug.Log(touchInfo.position_);
-        }
     }
     
     void moveAction(Vector3 moveVec)
@@ -95,7 +89,11 @@ public class Player : MonoBehaviour
         }
 
         transform.rotation = Quaternion.Euler(0, rotate, 0);
-        moveAction(new Vector3(dx, 0, dz));
+        
+        TouchUtil.TouchInfo touchInfo = TouchUtil.getTouch();
+        if (!TouchUtil.isTouch(touchInfo)) {
+            moveAction(new Vector3(dx, 0, dz));
+        }
     }
 
     public void attackButtonDown()
