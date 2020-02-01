@@ -6,7 +6,7 @@ using Common;
 public class Player : MonoBehaviour
 {
     private Animator animator = null;
-    private float moveTime = 0.25f;
+    private const float MOVE_TIME = 0.25f;
     private const float MOVE_DIS = 2.0f;
     private float attackTime = 0.75f;
     private TimeCallback callbackManager = null;
@@ -30,9 +30,9 @@ public class Player : MonoBehaviour
     
     void moveAction(Vector3 moveVec)
     {
-        callbackManager = new TimeCallback(moveTime,
+        callbackManager = new TimeCallback(MOVE_TIME,
             deltaTime => {
-                transform.position = transform.position + moveVec * deltaTime / moveTime;
+                transform.position = transform.position + moveVec * deltaTime / MOVE_TIME;
             },
             () => {
                 this.animator.SetTrigger("idleTrigger");
