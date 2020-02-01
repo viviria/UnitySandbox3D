@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     private Animator animator = null;
     private float moveTime = 0.25f;
+    private const float MOVE_DIS = 2.0f;
     private float attackTime = 0.75f;
     private TimeCallback callbackManager = null;
     private GameObject uiCanvas = null;
@@ -52,39 +53,39 @@ public class Player : MonoBehaviour
         switch (moveDir)
         {
             case 0: // UP
-                dz = 1.0f;
+                dz = MOVE_DIS;
                 break;
             case 1: // RIGHT UP
                 rotate = 45.0f;
-                dx = 1.0f;
-                dz = 1.0f;
+                dx = MOVE_DIS;
+                dz = MOVE_DIS;
                 break;
             case 2: // RIGHT
                 rotate = 90.0f;
-                dx = 1.0f;
+                dx = MOVE_DIS;
                 break;
             case 3: // RIGHT DOWN
                 rotate = 135.0f;
-                dx = 1.0f;
-                dz = -1.0f;
+                dx = MOVE_DIS;
+                dz = -MOVE_DIS;
                 break;
             case 4: // DOWN
                 rotate = 180.0f;
-                dz = -1.0f;
+                dz = -MOVE_DIS;
                 break;
             case 5: // LEFT DOWN
                 rotate = -135.0f;
-                dx = -1.0f;
-                dz = -1.0f;
+                dx = -MOVE_DIS;
+                dz = -MOVE_DIS;
                 break;
             case 6: // LEFT
                 rotate = -90.0f;
-                dx = -1.0f;
+                dx = -MOVE_DIS;
                 break;
             case 7: // LEFT UP
                 rotate = -45.0f;
-                dx = -1.0f;
-                dz = 1.0f;
+                dx = -MOVE_DIS;
+                dz = MOVE_DIS;
                 break;
         }
 
