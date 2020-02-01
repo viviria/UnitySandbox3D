@@ -39,8 +39,9 @@ namespace Roguelike {
       {
         return;
       }
-        
+      
       animator_.SetTrigger("attackTrigger");
+      GameManager.instance().enamyDamage(playerStatus_.power_);
     }
   }
 }
