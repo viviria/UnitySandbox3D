@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     private const float MOVE_TIME = 0.25f;
     private const float MOVE_DIS = 1.5f;
     private float attackTime = 0.75f;
-    private TimeCallback callbackManager = null;
+    private TimeCallback timeCallback = null;
     private GameObject uiCanvas = null;
 
     // Start is called before the first frame update
@@ -22,28 +22,28 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (callbackManager != null)
+        if (timeCallback != null)
         {
-            callbackManager.Update(Time.deltaTime);
+            timeCallback.Update(Time.deltaTime);
         }
     }
     
     void moveAction(Vector3 moveVec)
     {
-        callbackManager = new TimeCallback(MOVE_TIME,
+        timeCallback = new TimeCallback(MOVE_TIME,
             deltaTime => {
                 transform.position = transform.position + moveVec * deltaTime / MOVE_TIME;
             },
             () => {
                 this.animator.SetTrigger("idleTrigger");
-                this.callbackManager = null;
+                this.timeCallback = null;
                 uiCanvas.GetComponent<CanvasController>().setEnabled(true);
             }
         );
 
         uiCanvas.GetComponent<CanvasController>().setEnabled(false);
         this.animator.SetTrigger("walkTrigger");
-        callbackManager.Start();
+        timeCallback.Start();
     }
 
     public void moveButtonDown(int moveDir)
@@ -99,19 +99,19 @@ public class Player : MonoBehaviour
 
     public void attackButtonDown()
     {
-        if (callbackManager != null && callbackManager.isExecute_)
+        if (timeCallback != null && timeCallback.isExecute_)
         {
             return;
         }
 
-        callbackManager = new TimeCallback(attackTime, null,
+        timeCallback = new TimeCallback(attackTime, null,
             () => {
                 this.animator.SetTrigger("idleTrigger");
-                this.callbackManager = null;
+                this.timeCallback = null;
             }
         );
         
         animator.SetTrigger("attackTrigger");
-        callbackManager.Start();
+        timeCallback.Start();
     }
 }
