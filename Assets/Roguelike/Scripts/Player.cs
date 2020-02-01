@@ -5,6 +5,7 @@ namespace Roguelike {
   public class Player : MonoBehaviour
   {
     private PlayerMove playerMove_ = null;
+    private PlayerStatus playerStatus_ = null;
     private Animator animator_ = null;
 
     // Start is called before the first frame update
@@ -12,6 +13,7 @@ namespace Roguelike {
     {
         animator_ = GetComponent<Animator>();
         playerMove_ = new PlayerMove(this, animator_, GameObject.Find("Canvas"));
+        playerStatus_ = new PlayerStatus();
     }
 
     // Update is called once per frame
