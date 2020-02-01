@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Common
 {
@@ -23,14 +24,14 @@ namespace Common
             elapsedTime_ = 0.0f;
         }
 
-        public void Update(float deltaTime)
+        public void Update()
         {
             if (isExecute_)
             {
                 if (elapsedTime_ <= endTime_)
                 {
-                    elapsedTime_ += deltaTime;
-                    action_?.Invoke(deltaTime);
+                    elapsedTime_ += Time.deltaTime;
+                    action_?.Invoke(Time.deltaTime);
                 }
                 else
                 {
