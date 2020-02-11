@@ -12,14 +12,6 @@ namespace Roguelike {
     // Start is called before the first frame update
     void Start()
     {
-      GameObject uiCanvas = GameObject.Find("Canvas");
-      moveController_ = new MoveController(MOVE_TIME,
-      () => {
-        uiCanvas.GetComponent<CanvasController>().setEnabled(false);
-      },
-      () => {
-        uiCanvas.GetComponent<CanvasController>().setEnabled(true);
-      });
       playerStatus_ = new PlayerStatus();
     }
 
@@ -36,7 +28,16 @@ namespace Roguelike {
       
       TouchUtil.TouchInfo touchInfo = TouchUtil.getTouch();
       if (!TouchUtil.isTouch(touchInfo)) {
-        moveController_.moveAction(gameObject, rotate);
+        GameObject uiCanvas = GameObject.Find("Canvas");
+        moveController_ = new MoveController(MOVE_TIME,
+        () => {
+          uiCanvas.GetComponent<CanvasController>().setEnabled(false);
+        },
+        () => {
+          uiCanvas.GetComponent<CanvasController>().setEnabled(true);
+        });
+
+        moveController_.moveAction(gameObject, (MoveController.MoveDir)moveDir);
       }
     }
 
