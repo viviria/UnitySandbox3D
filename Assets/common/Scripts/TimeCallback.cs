@@ -8,13 +8,13 @@ namespace Common
         public bool isExecute_ { private set; get; } = false;
         private float endTime_ = 0.0f;
         private float elapsedTime_ = 0.0f;
-        private Action<float> action_ = null;
+        private Action<float> updateAction_ = null;
         private Action endCallback_ = null;
 
-        public TimeCallback(float endTime, Action<float> action, Action endCallback)
+        public TimeCallback(float endTime, Action<float> updateAction, Action endCallback)
         {
             endTime_ = endTime;
-            action_ = action;
+            updateAction_ = updateAction;
             endCallback_ = endCallback;
         }
 
@@ -31,7 +31,7 @@ namespace Common
                 if (elapsedTime_ <= endTime_)
                 {
                     elapsedTime_ += Time.deltaTime;
-                    action_?.Invoke(Time.deltaTime);
+                    updateAction_?.Invoke(Time.deltaTime);
                 }
                 else
                 {
