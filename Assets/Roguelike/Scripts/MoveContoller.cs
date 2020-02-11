@@ -3,8 +3,13 @@ using UnityEngine;
 using Common;
 
 namespace Roguelike {
+
   public class MoveController
   {
+    public enum MoveDir {
+      UP, RIGHT_UP, RIGHT, RIGHT_DOWN, DOWN, LEFT_DOWN, LEFT, LEFT_UP
+    }
+
     private float moveTime_ = 1.0f;
     private float MOVE_DIS = 1.5f;
     private Action startAction_ = null;
@@ -23,17 +28,40 @@ namespace Roguelike {
       timeCallback_?.Update();
     }
 
-    public void moveAction(GameObject own, float rotateY)
-    {
+    private Vector3 getMoveVector(MoveDir moveDir) {
+      switch (moveDir) {
+        case MoveDir.UP:
+          return new Vector3(0, 0, MOVE_DIS);
+        case MoveDir.RIGHT_UP:
+          return new Vector3(MOVE_DIS, 0, MOVE_DIS);
+        case MoveDir.RIGHT:
+          return new Vector3(MOVE_DIS, 0, 0);
+        case MoveDir.RIGHT_DOWN:
+          return new Vector3(MOVE_DIS, 0, -MOVE_DIS);
+        case MoveDir.DOWN:
+          return new Vector3(0, 0, -MOVE_DIS);
+        case MoveDir.LEFT_DOWN:
+          return new Vector3(-MOVE_DIS, 0, -MOVE_DIS);
+        case MoveDir.LEFT:
+          return new Vector3(-MOVE_DIS, 0, 0);
+        case MoveDir.LEFT_UP:
+          return new Vector3(-MOVE_DIS, 0, MOVE_DIS);
+      }
+      return Vector3.zero;
+    }
 
+    public void moveAction(GameObject own, MoveDir moveDir)
+    {
       Animator animator = own.GetComponent<Animator>();
 
-      float moveDis = MOVE_DIS * (rotateY % 90 != 0 ? Mathf.Sqrt(2) : 1);
-      Vector3 moveVec = new Vector3(moveDis * Mathf.Sin(rotateY * Mathf.PI / 180), 0, moveDis * Mathf.Cos(rotateY * Mathf.PI / 180));
+      Vector3 moveVec = getMoveVector(moveDir);
+      if (!GameManager.instance().canMoveCharacter(own, own.transform.position + moveVec)) {
+        return;
+      }
 
       timeCallback_ = new TimeCallback(moveTime_,
         deltaTime => {
-          own.transform.position = own.transform.position + moveVec * deltaTime / moveTime_;
+          own.transform.position += moveVec * deltaTime / moveTime_;
         },
         () => {
           Debug.Log(own.transform.position);
