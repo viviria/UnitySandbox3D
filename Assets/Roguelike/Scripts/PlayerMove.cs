@@ -7,7 +7,7 @@ namespace Roguelike {
   public class PlayerMove
   {
     private const float MOVE_TIME = 0.25f;
-    private float MOVE_DIS = 1.5f * Mathf.Sqrt(2);
+    private float MOVE_DIS = 1.5f;
     private Player player_ = null;
     private Animator animator_ = null;
     private TimeCallback timeCallback_ = null;
@@ -27,13 +27,15 @@ namespace Roguelike {
 
     public void moveAction(float rotateY)
     {
-      Vector3 moveVec = new Vector3(MOVE_DIS * Mathf.Sin(rotateY * Mathf.PI / 180), 0, MOVE_DIS * Mathf.Cos(rotateY * Mathf.PI / 180));
+      float moveDis = MOVE_DIS * (rotateY % 90 != 0 ? Mathf.Sqrt(2) : 1);
+      Vector3 moveVec = new Vector3(moveDis * Mathf.Sin(rotateY * Mathf.PI / 180), 0, moveDis * Mathf.Cos(rotateY * Mathf.PI / 180));
 
       timeCallback_ = new TimeCallback(MOVE_TIME,
         deltaTime => {
           player_.transform.position = player_.transform.position + moveVec * deltaTime / MOVE_TIME;
         },
         () => {
+          Debug.Log(player_.transform.position);
           this.animator_.SetTrigger("idleTrigger");
           this.uiCanvas_.GetComponent<CanvasController>().setEnabled(true);
           this.timeCallback_ = null;
