@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 namespace Roguelike {
@@ -24,6 +23,16 @@ namespace Roguelike {
     private GameManager()
     {
       turn_ = 1;
+    }
+
+    public bool canMoveCharacter(GameObject own, Vector3 checkPosition)
+    {
+      Vector3 up = Vector3.up * 0.1f;
+      if (Physics.Linecast(own.transform.position + up, checkPosition + up)) {
+        return false;
+      }
+
+      return true;
     }
 
     public void enamyDamage(int power)
