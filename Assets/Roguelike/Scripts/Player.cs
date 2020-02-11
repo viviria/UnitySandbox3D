@@ -11,9 +11,9 @@ namespace Roguelike {
     // Start is called before the first frame update
     void Start()
     {
-        animator_ = GetComponent<Animator>();
-        playerMove_ = new PlayerMove(this, animator_, GameObject.Find("Canvas"));
-        playerStatus_ = new PlayerStatus();
+      animator_ = GetComponent<Animator>();
+      playerMove_ = new PlayerMove(this, animator_, GameObject.Find("Canvas"));
+      playerStatus_ = new PlayerStatus();
     }
 
     // Update is called once per frame
