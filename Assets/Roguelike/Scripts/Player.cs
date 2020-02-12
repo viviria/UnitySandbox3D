@@ -43,6 +43,7 @@ namespace Roguelike {
 
     public void attackButtonDown()
     {
+      animator_ = GetComponent<Animator>();
       if (animator_.GetCurrentAnimatorStateInfo(0).IsName("attack"))
       {
         return;
