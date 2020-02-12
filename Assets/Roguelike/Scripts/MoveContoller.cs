@@ -59,9 +59,12 @@ namespace Roguelike {
         return;
       }
 
+      Vector3 startPosition = own.transform.position;
+      Vector3 endPosition = startPosition + moveVec;
+      
       timeCallback_ = new TimeCallback(moveTime_,
-        deltaTime => {
-          own.transform.position += moveVec * deltaTime / moveTime_;
+        (deltaTime, elapsedTime) => {
+          own.transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / moveTime_);
         },
         () => {
           Debug.Log(own.transform.position);
