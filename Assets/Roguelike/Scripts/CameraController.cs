@@ -5,21 +5,20 @@ using UnityEngine;
 namespace Roguelike {
   public class CameraController : MonoBehaviour
   {
-    GameObject player = null;
-    Vector3 startPos;
+    public GameObject target_ = null;
+    public float horizontalLength_ = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("player");
-        startPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 playerPos = player.transform.position;
-        transform.position = playerPos + startPos;
+      float angle = transform.eulerAngles.x;
+      float y = Mathf.Tan(angle * Mathf.PI / 180.0f) * -horizontalLength_;
+      //transform.position = target_.transform.position + new Vector3(0, y, horizontalLength_);
     }
   }
 }
